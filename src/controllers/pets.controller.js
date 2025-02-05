@@ -24,6 +24,8 @@ const updatePet = async(req,res) =>{
 
 const deletePet = async(req,res)=> {
     const petId = req.params.pid;
+    const pet = await petsService.getBy({_id: petId});
+    if(!pet) return res.status(404).send({status:"error", error:"Pet not found"})
     const result = await petsService.delete(petId);
     res.send({status:"success",message:"pet deleted"});
 }

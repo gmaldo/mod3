@@ -10,6 +10,8 @@ import petsRouter from './routes/pets.router.js';
 import adoptionsRouter from './routes/adoption.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import mocksRouter from './routes/mocks.router.js'
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express';
 
 const app = express();
 const PORT = config.port//process.env.PORT||8080;
@@ -23,6 +25,19 @@ const mongoInstance = async () => {
 };
 mongoInstance();
 
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'Documentación de Adopción de Mascotas',
+            description: 'API para la gestión de adopciones de mascotas'
+        }
+    },
+    apis: ['./docs/**/*.yaml']
+}
+const spects = swaggerJsDoc(swaggerOptions)
+//declare swagger endpoint
+app.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(spects))
 
 app.use(express.json());
 app.use(cookieParser());

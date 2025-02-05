@@ -1,0 +1,171 @@
+paths:
+  /api/sessions/register:
+    post:
+      summary: Registra un nuevo usuario
+      description: Registra un nuevo usuario con la informacion proveida
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/registerUser'
+      responses:
+        '200':
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+                    example: :67a2b8d316db47e31127a90f"
+                    description: ID del usuario creado
+        '400':
+          description: Error por valores incompletos o usuario ya existente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  error:
+                    type: string
+                    example: "Incomplete values"
+  /api/sessions/login:
+    post:
+      summary: Loguea un usuario
+      description: Loguea un usuario con la informacion provista
+      tags:
+        - Session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/loginUser'
+      responses:
+        '200':
+          description: Inicio de sesión exitoso
+          headers:
+            Set-Cookie:
+              description: Cookie de sesión con el token JWT
+              type: string
+              example: "coderCookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...; Max-Age=3600; HttpOnly; Secure"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Logged in"
+        '400':
+          description: Error por valores incompletos o contraseña incorrecta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  error:
+                    type: string
+                    example: "Incomplete values" # o "Incorrect password"
+        '404':
+          description: Error por usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "error"
+                  error:
+                    type: string
+                    example: "User  doesn't exist"
+  /api/sessions/current:
+    get:
+      summary: Entra a un endpoint protegido, requiere hacerlo con la cookie
+      tags:
+        - Session
+      parameters:
+        - name: coderCookie
+          in: cookie
+          required: true
+          description: Cookie de sesión que contiene el token JWT
+          schema:
+            type: string
+            example: "coderCookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...; Max-Age=3600; HttpOnly; Secure"
+      responses:
+        '200':
+          description: Sesión actual recuperada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: "Usuario de prueba"
+                      role:
+                        type: string
+                        example: "user"
+                      email:
+                        type: string
+                        example: "example@gmail.com"
+                        
+components:
+  requestBodies:
+    registerUser:
+      type: Object
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        first_name: "Juan"
+        last_name: "Perez"
+        email: "mail@example.com"
+        password: "123456"
+    loginUser:
+      type: Object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: "mail@example.com"
+        password: "123456"
