@@ -1,0 +1,27 @@
+# Dependencias de Node.js
+node_modules
+**/node_modules/
+#dir de compilacion
+**/dist
+#versionado
+.git
+#logs y registros
+npm-debug.log
+*.log
+#cobertura
+.converage
+.converage.*
+#variables de entorno
+.env
+#credenciales de AWS
+.aws
+# Archivos temporales (ejemplos)
+tmp/
+temp/
+*.tmp
+*.swp
+#archivo de editor
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

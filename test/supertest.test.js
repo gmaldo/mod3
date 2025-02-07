@@ -358,7 +358,7 @@ describe("Testing Adoptme App", () => {
                 expect(res.body).to.have.property('status', 'success');
                 expect(res.body.payload).to.have.property('_id', adoption._id);
                 expect(res.body.payload).to.have.property('owner', userMock._id);       
-                expect(res.body.payload).to.have.property('_id', pid);       
+                expect(res.body.payload).to.have.property('pet', pid);       
        
             })
             it('debe devolver 400 si no encuentrta la adopcion', async () => {
