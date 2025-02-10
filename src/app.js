@@ -18,7 +18,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUIExpress from 'swagger-ui-express';
 
 const app = express();
-const PORT = config.port//process.env.PORT||8080;
+const PORT = config.port||8080;
 
 const mongoInstance = async () => {
     try {
