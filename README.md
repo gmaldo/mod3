@@ -23,8 +23,8 @@ Para iniciar el proyecto, sigue estos pasos:
     node src/app.js
     ```
 ## env
-Estructura del Archivo
-El archivo .env debe contener las siguientes variables:
+### Estructura del Archivo
+El archivo `.env` debe contener las siguientes variables:
 
     PORT=
     MONGO_URL=
@@ -35,6 +35,11 @@ El archivo .env debe contener las siguientes variables:
     ```
     MONGO_URL=mongodb://username:password@localhost:27017/mydatabase
     ```
+### Ubicacion del archivo
+El archivo `.env` debe ubicarse en la siguiente ruta dentro del proyecto:
+```
+src/config/.env
+```
 ## Instrucciones para Correr en Docker
 1. **Construir la Imagen**: Ejecuta el siguiente comando para crear la imagen:
    ```bash
@@ -50,10 +55,10 @@ Nota: Si estás usando otro contenedor con MongoDB o una instalacion local de Mo
 ## Imagen de Dockerhub
 La imagen del proyecto está disponible en Docker Hub. Puedes descargarla usando el siguiente comando:
 ```bash
-docker pull gmaldo/entrega02
+docker pull gmaldo/entrega02:1.0.1
 ```
 O accediendo a la siguiente URL:
 https://hub.docker.com/r/gmaldo/entrega02
 ## Deploy en Railway
-De puede acceder a un deploy en railway en al siguiente URL:
-https://railway.com/
+Se puede acceder a un deploy en railway en al siguiente URL:
+https://mod3-production.up.railway.app/
